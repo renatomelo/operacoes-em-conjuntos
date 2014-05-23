@@ -6,8 +6,4 @@ git remote add origin git@github.com:renatomelo/TrabalhoAlg.git
 
 git pull origin master
 
-git add .
 
-git commit -m "Descrição do commit" 
-
-git push origin master 
