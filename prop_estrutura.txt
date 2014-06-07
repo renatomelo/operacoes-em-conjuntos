@@ -1,0 +1,19 @@
+Proposta de estruturação e separação do programa em módulos
+
+Podemos dividir o programa em vários arquivos de códigos menores, a fim de evitar que o sistema seja feito inteiramante em um único arquivo fonte gigantesco.
+
+Assim poderemos facilitar a depuração e nos permite trabalhar em partes diferentes simultaneamente.
+
+Esboço:
+
+Um arquivo contendo a implementação das funções das operações do programa
+	+, -, =, *, /, <, > 
+	(Depentendo da complexidade podemos dividir um arquivo de código para cada operação)
+
+Um arquivo contendo as operações básicas de cada estrutura de dados
+	Vetor: inserção, remoção e pesquisa
+	Árvore: inserção, remoção e pesquisa
+	
+O professor comentou em sala que seria interessante pesquisar sobre Hash. (Talvez seja mais eficiente que Arvores binárias.)
+
+De início, podemos pensar assim, mas certamente mudaremos esse esboço após entedermos melhor a linguagem .
