@@ -12,15 +12,11 @@ git pull origin master
 Enviando mudanças:
 
 git add .
-
 git commit -m "Descrição do commit" 
-
 git push origin master 
 
 
 Run
-
 git config --global user.email "you@example.com"
-
 git config --global user.name "Your Name"
 
