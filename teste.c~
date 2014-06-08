@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define true 1 // para usar como tipo booleano
+#define false 0
+
+typedef int bool; //Definição do tipo booleano
+
+bool ehValido(int n, int k){
+	if (buscaBinaria(k))
+		return false;
+	return true;	
+}
+
+int main (int argc, char *argv[])
+{
+	char fimdalinha;
+	char op='1'; // Inicia com um falor qualquer
+	int i, max, n=0;
+	int vet[n];
+	
+	scanf("%d",&max);
+	
+	//Lê o enter e vai para a proxima linha
+	scanf("%c",&fimdalinha);
+		
+	while (op){				
+		scanf("%c",&op);
+		//Sai do laço se chegar ao fim do arquivo
+		if (op == '0'){
+			printf("Fim do arquivo.\n");
+			break;
+		}
+			
+		scanf("%d",&n);
+		
+		printf("%c ", op);
+		printf("%d ", n);		
+
+		for(i=0;i < n;i++)
+			scanf("%d",&vet[i]);			
+			
+		//Lê o enter e vai para a proxima linha
+		scanf("%c",&fimdalinha); 
+		
+		for (i = 0; i < n; i += 1)
+			printf("%d ", vet[i]);
+		
+		switch(op){
+			case '+': 
+				printf("\t Inserir\n");
+				if(ehValido(max))
+					printf("Conjunto válido.\n");
+				else
+					printf("O conjunto viola uma regra de validação.\n");
+				break;
+			case '-': 
+				printf("\t Remover\n");
+				break;
+			case '=': 
+				printf("\t Igualdade\n");
+				break;
+			case '*': 
+				printf("\t Exibir\n");
+				break;
+			default: 
+				printf("\t Operação invalida\n");
+				break;
+		}
+	}	
+	return 0;
+} 
