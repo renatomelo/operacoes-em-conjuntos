@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "fila.h"
 
 typedef struct no {
 	int chave; //Tamanho n do conjunto
@@ -17,7 +18,7 @@ arvore *inserir(arvore *raiz, no *novo);
 
 no *insere_rec(no *r, no * x);
 
-void atravassarEmOrdem(arvore *raiz);
+Fila *atravassarEmOrdem(arvore *raiz, int nConjuntos);
 
 no *minimo(arvore *raiz);
 

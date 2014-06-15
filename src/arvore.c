@@ -53,8 +53,9 @@ no *insere_rec(no *r, no * x){
 /*	}*/
 /*}*/
 
-void atravassarEmOrdem(arvore *raiz){
-	no *atual, *pilha[100];
+Fila *atravassarEmOrdem(arvore *raiz, int nConjuntos){
+	Fila *fila = criarFila(nConjuntos);
+	no *atual, *pilha[nConjuntos];
 	int topo = 0;
 	atual = raiz;
 	while(atual != NULL || topo > 0){
@@ -63,10 +64,12 @@ void atravassarEmOrdem(arvore *raiz){
 			atual = atual->esq;
 		}else{
 			atual = pilha[--topo];
-			printf("%d\n", atual->chave);
+			//printf("%d\n", atual->chave);
+			inserirComPrioridade(fila,atual->chave);
 			atual = atual->dir;
 		}
 	}
+	return fila;
 }
 
 /*Encontra o menor elemento da arvore*/

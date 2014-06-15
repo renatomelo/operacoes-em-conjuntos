@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+//#include "fila.h"
 #include "arvore.h"
+
+
 
 #define true 1 // para usar como tipo booleano
 #define false 0
@@ -44,14 +47,12 @@ bool igualdade(int n,int vet[]){
 	return false;
 }
 
-/*void exibirTodos(arvore *raiz){*/
-/*		int i, nodos[];*/
-/*		for (i = 0; i < raiz->chave; i += 1)*/
-/*		{*/
-/*			nodos[i]	*/
-/*		}*/
-/*		printf("\n");	*/
-/*}*/
+void exibirTodos(arvore *raiz, int nConjuntos){
+	Fila *fila = atravassarEmOrdem(raiz,nConjuntos);
+	while (!estaVazia(fila))
+	{   printf("%d Desenfileirado\n", desenfileirar(fila));	}	
+	printf("\n");	
+}
 
 int main (int argc, char *argv[])
 {
@@ -59,6 +60,7 @@ int main (int argc, char *argv[])
 	char op='1'; // Inicia com um falor qualquer
 	int i, max, n=0;
 	int vet[n];
+	int nConjuntos = 0;//numero de conj inseridos no superconjunto
 	
 	scanf("%d",&max);
 	
@@ -95,6 +97,7 @@ int main (int argc, char *argv[])
 				if(ehValido(max, n, vet)){
 					no *conjunto = cria_novo_no(n,vet);
 					raiz = inserir(raiz, conjunto);
+					nConjuntos++;
 					printf("\t\t\t\tInserido\n");
 				}else
 					printf("\t\t\t\tConjunto inváldo.\n\n");
@@ -102,6 +105,7 @@ int main (int argc, char *argv[])
 			case '-': 				
 				if(igualdade(n,vet)){
 					raiz = remover_rec(raiz,n);
+					nConjuntos--;
 					printf("\t\t\t\tRemovido\n");
 				}else
 					printf("\t\t\t\tEste conj. não existe.\n");				
@@ -115,7 +119,7 @@ int main (int argc, char *argv[])
 				break;
 			case '*': 
 				printf("Exibindo..\n");
-				atravassarEmOrdem(raiz);
+				exibirTodos(raiz,nConjuntos);
 				break;
 			default: 
 				printf("\t\t\t\tOperação invalida.\n");
