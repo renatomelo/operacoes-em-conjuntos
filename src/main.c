@@ -12,13 +12,12 @@ reconhecer cada operação, validação das entradas e armazenamento dos dados e
 Isso obedece a regra da especificação, pode ser redirecionado 
 de um arquivo e para um arquivo como pede no trabalho;
  Até o momento os printfs presentes no código são só para fim de log.
- Ainda não são as saídas processadas.
+ Ainda não são as saídas processadas. 
 */
 
 typedef int bool; //Definição do tipo booleano
 
-//Arvore binária de buca
-Arvore *raiz = NULL;
+Arvore *raiz = NULL; //Arvore binária de buca
 
 // É válido se não existe valor maior que k no conjunto
 bool ehValido(int k, int n, int vet[]){
@@ -27,7 +26,10 @@ bool ehValido(int k, int n, int vet[]){
 		return false;
 	return true;	
 }
-	
+
+//Verifica se dado conjunto já foi inserido no superconjunto
+//Recebe um valor n, e um vetor, incapsula em um nó e então
+// faz uma busca na árvore, devolve verdadeiro se existe.
 bool existe(int n,int vet[]){
 	No *conjunto = cria_novo_no(n,vet);
 	if (buscaNo(raiz, conjunto))
@@ -35,68 +37,42 @@ bool existe(int n,int vet[]){
 	else
 		return false;
 }
-
-/*void exibirTodos(Arvore *raiz, int nConjuntos){*/
-/*	//Fila *fila = atravassarEmOrdem(raiz,nConjuntos);*/
-/*	No **vetorNodos = atravassarEmOrdem(raiz, nConjuntos);*/
-/*	int i,j;*/
-/*/*	while (!estaVazia(fila))*/
-/*/*	{   printf("%d Desenfileirado\n", desenfileirar(fila));	}	*/
-/*	for (i = 0; i < nConjuntos; i += 1)*/
-/*	{		*/
-/*		int n = vetorNodos[i]->tam;*/
-/*		//int proximo = vetorNodos[i+1]->tam;*/
-/*		printf("quem é o i: %d ", i );*/
-/*		printf("%d: ", n );*/
-/*/*		if(i < nConjuntos -1){	*/
-/*/*			printf("IF quem é o i: %d \n", i );		*/
-/*/*			if (n == proximo){*/
-/*/*			printf("IF quem é o i: %d \n", i );*/
-/*/*				int *conjAtual = vetorNodos[i]->elementos;*/
-/*/*				int *proxConj = vetorNodos[i+1]->elementos;*/
-/*/*				int *menor = menorVetor(conjAtual, proxConj, n);*/
-/*/*				int *maior = menorVetor(conjAtual, proxConj, n);*/
-/*/*				imprimeVetor(menor,n);*/
-/*/*				imprimeVetor(maior,n);*/
-/*/*				i++;			*/
-/*/*			}else{*/
-/*/*				printf("ELSE quem é o i: %d \n", i );*/
-/*/*				imprimeVetor(vetorNodos[i]->elementos, n);*/
-/*/*			}		*/
-/*/*		}else{*/
-/*/*			printf("ELSE quem é o i: %d \n", i );*/
-/*/*		}*/
-/*			imprimeVetor(vetorNodos[i]->elementos, n);*/
-/*			printf("FOR quem é o i: %d \n", i );*/
-/*	}*/
-/*}*/
-
+/**
+Aqui a acontece a leitura das entrada, a primeira linha é um 
+valor max, que é o maior elemento que pode existir nos conjuntos.
+Uma operação (+,-,=,*), um valor n, que será o tamanho dos conjuntos
+e os elementos do conjunto. 
+*/
 int main (int argc, char *argv[])
 {
 	char fimdalinha;
 	char op='1'; // Inicia com um falor qualquer
 	int i, max, n=0;
 	int vet[n];
-	int nConjuntos = 0;//numero de conj inseridos no superconjunto
 	
-	scanf("%d",&max);
+	scanf("%d",&max); //Lê o primeiro argumento da entrada
 	
 	//Lê o enter e vai para a proxima linha
 	scanf("%c",&fimdalinha);
 		
-	while (op){				
+	while (op){
+		//Lê a operação		
 		scanf("%c",&op);
 		//Sai do laço se chegar ao fim do arquivo
 		if (op == '0'){
 			printf("Fim do arquivo.\n");
 			break;
 		}
+		//Se a operação não é * lê o restante dos argumentos
+		//caso contrario desconsidera o restante da linha
 		if (op != '*'){
 			scanf("%d",&n);
 		
+			//Mostra os valores que foram lidos
 			printf("%c ", op);		
-			printf("%d ", n);		
-
+			printf("%d ", n);
+			
+			//Lê os elementos do conjunto e insere em um vetor
 			for(i=0;i < n;i++)
 				scanf("%d",&vet[i]);			
 			
@@ -110,38 +86,48 @@ int main (int argc, char *argv[])
 			scanf("%c",&fimdalinha);
 		
 		switch(op){
-			case '+':			
-				if(ehValido(max,n,vet)){		
+			case '+'://Operação de inserção	
+				//Validação	
+				if(ehValido(max,n,vet)){
+					//incapsula o vetor e o tamanho em um nó  	
 					No *conjunto = cria_novo_no(n,vet);
+					//Se o conj. já existe na arvore não insere
 					if (buscaNo(raiz, conjunto))
 						printf("\t\tErro.\n");
 					else{
+						//caso contrario o conjunto é inseridos
 						raiz = insere_rec(raiz, conjunto);
-						nConjuntos++;
 						printf("\t\tOk!\n");
 					}
 				}else
-					printf("\t\tConjunto inváldo.\n\n");
+					//Se existe no conj elemento maior q max dá erro
+					printf("\t\tErro.\n\n");
 				break; 
-			case '-':
+			case '-'://Operação de remoção de um conjunto
+				//Sem esse if está dando erro na criação do nó
 				if(true){
+					//Incapsula os dados em um nó
 					No *conjunto = cria_novo_no(n,vet);
+					//Verifica se existe esse nó na arvore
+					//Se sim, é removido. Se não, dá erro
 					if (buscaNo(raiz, conjunto)){
 						raiz = remover_rec(raiz,conjunto);
-						nConjuntos--;
 						printf("\t\tOk!\n");
 					}else{
 						printf("\t\tErro.\n");
 					}
 				}
 				break;
-			case '=': 
+			case '=':
+				//Verifica se o conjunto ja existe no superconjunto
+				//Se sim, Ok, senão, dá erro.
 				if(existe(n,vet))
 					printf("\t\tOk!.\n");
 				else
 					printf("\t\tErro.\n");
 				break;
-			case '*': 
+			case '*':
+				//Mostra todos os subconjuntos em ordem crescente
 				printf("Exibindo..\n");
 				emOrdem(raiz);
 				break;

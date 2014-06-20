@@ -1,4 +1,4 @@
-#include "arvore.h" //alterar
+#include "arvore.h"
 #define true 1 // para usar como tipo booleano
 #define false 0
 
@@ -10,13 +10,14 @@ No *cria_novo_no(int tam, int elem[]){
 	No *novo;
 	novo = malloc(sizeof (No));
 	novo->tam = tam;
+	//Alocando espaço para o vetor de elementos
 	novo->elem = (int*) malloc(tam * sizeof(int));
 	for (i = 0; i < tam; i += 1)
-		novo->elem[i] = elem[i];
+		novo->elem[i] = elem[i];//Insere os elementos no vetor 
 	novo->esq = novo->dir = NULL;
 }
 
-// A função recebe uma árvore de busca r e uma 
+// A função recebe uma árvore de busca e uma 
 // folha nova que não pertence à árvore.
 // A função insere o nó novo na árvore 
 // de modo que a árvore continue sendo de busca
@@ -41,6 +42,9 @@ Arvore *inserir(Arvore *raiz, No *novo){
 }
 
 /*Inserir recursivamente*/
+//Considera como chave do nó o tamanho do conjunto, mas se existe 
+//cojuntos do mesmo tamanho, então passa-se a considerar os elementos
+//do cojunto para manter a ordem
 No *insere_rec(No *r, No *x){
 	if (!r)
 		return x;
@@ -67,27 +71,6 @@ void emOrdem(Arvore *raiz){
 		emOrdem(raiz->dir);
 	}
 }
-
-/*No **atravassarEmOrdem(Arvore *raiz, int nConjuntos){*/
-/*	//Fila *fila = criarFila(nConjuntos);*/
-/*	No *vetorNodos[nConjuntos];*/
-/*	No *atual, *pilha[nConjuntos];*/
-/*	int nElem=0;*/
-/*	int topo = 0;*/
-/*	atual = raiz;*/
-/*	while(atual != NULL || topo > 0){*/
-/*		if (atual != NULL){*/
-/*			pilha[topo++] = atual;*/
-/*			atual = atual->esq;*/
-/*		}else{*/
-/*			atual = pilha[--topo];*/
-/*			//inserirComPrioridade(fila,atual->elem);*/
-/*			vetorNodos[nElementos++] = atual;*/
-/*			atual = atual->dir;*/
-/*		}*/
-/*	}*/
-/*	return vetorNodos;*/
-/*}*/
 
 /*Encontra o menor elemento da arvore*/
 No *minimo(Arvore *raiz){
@@ -124,6 +107,8 @@ No *sucessor(Arvore *raiz, No *x){
 	return sucessor;
 }
 
+//Recebe o endereço de um nó x. Devolve o endereço do nó anterior na 
+//ordem e-r-d. A função supõe que x != NULL.
 No *antecessor(Arvore *raiz, No *x){
 	No *atual, *antecessor;
 	if(x->esq != NULL)
@@ -141,7 +126,7 @@ No *antecessor(Arvore *raiz, No *x){
 	}
 	return antecessor;
 }
-
+//Tentativa de fazer uma versão iterativa, mas não consegui ainda :(
 void remover(Arvore *raiz, int x){
 	No *atual, *anterior;
 	atual = raiz;
@@ -183,6 +168,10 @@ void remover(Arvore *raiz, int x){
 		
 }
 
+//Metodo de remoção por recursividade
+//Retira um conjunto da árvore, a busca inicia considerando apenas 
+// o tamanho do conj como chave, ao encontrar chaves iguais,
+// a busca continua comparando os elementos do conjunto.
 Arvore *remover_rec(Arvore *raiz, No *x){
 	/*	Caso base*/
 	if(raiz == NULL) return raiz;
@@ -192,6 +181,8 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 		raiz->dir = remover_rec(raiz->dir, x);
 	else{ 
 		//Encontrou o nó a ser removido*/
+		//Se os elementos da raiz são iguais aos elementos de x, 
+		// o nó foi encontrado, senão, a busca continua.
 		if(saoIguais(raiz->elem,x->elem,x->tam)){
 			//Tem apenas um filho direita*/
 			if(raiz->esq == NULL){
@@ -225,8 +216,8 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 	return raiz;
 }
 
-/*Recebe um inteiro x e uma arvore r. Devolve um nó cujo tamanho é x.*/
-/*se tal nó não existe, devolve NULL*/
+/*Recebe um inteiro x e uma arvore r. Devolve um nó cujo tamanho é
+x. se tal nó não existe, devolve NULL*/
 No *busca(Arvore *raiz, int x){
 	while(raiz != NULL && raiz->tam != x){
 		if (raiz->tam > x)
@@ -238,6 +229,7 @@ No *busca(Arvore *raiz, int x){
 }
 
 //Devolve verdade se o nó existe na arvore
+//Quando existe nós do mesmo tamanho, compara-se os elementos do conj
 bool buscaNo(Arvore *raiz, No *x){
 	while(raiz != NULL){
 		if (raiz->tam > x->tam)
@@ -261,7 +253,7 @@ bool buscaNo(Arvore *raiz, No *x){
 }
 
 
-
+//Função utilizada para testar as funções acima
 /*int main (int argc, char *argv[]){*/
 /*	Arvore *raiz = NULL;*/
 /*	int v1[] = {1,2,3};*/

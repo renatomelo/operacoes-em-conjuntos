@@ -1,6 +1,9 @@
+/*
+Arquivo de cabeçalho da árvore, uma interface para arvore.c
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
-//#include "fila.h"
 
 typedef struct no {
 	int tam; //Tamanho n do conjunto

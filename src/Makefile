@@ -1,10 +1,10 @@
 #Este arquivo é um meio simples de automatizar a compilação de um programa com vários arquivos.
 # Tutorial básico: http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 #How to:
-#	Abra o terminal linux
-#   Entre no diretorio do projeto
-#   Execute o comando: make
-#   Execute o programa: ./trabalho < entrada.txt
+#	1 Abra o terminal linux
+#   2 Entre no diretorio do projeto
+#   3 Execute o comando: make
+#   4 Execute o programa: ./trabalho < ../entrada.txt
 
 
 #trabalho: func_basicas.c op_vetor.c arvore.c
@@ -19,10 +19,10 @@ LDIR = ../lib
 
 LIBS = -lm
 
-_DEPS = arvore.h op_vetor.h fila.h
+_DEPS = arvore.h op_vetor.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o op_vetor.o arvore.o fila.o
+_OBJ = main.o op_vetor.o arvore.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)

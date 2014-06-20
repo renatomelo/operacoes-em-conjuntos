@@ -74,7 +74,9 @@ int imprimeVetor(int vet[], int n){
 		printf("%d ",vet[i]);
 	printf("\n");
 }
-/*
+
+//Função de teste das funções acima
+/* 
 int main (int argc, char *argv[])
 {
 	int vet1[] = {1,4,6,8,9};
