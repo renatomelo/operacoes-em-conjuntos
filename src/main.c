@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "fila.h"
 #include "arvore.h"
-
-
+#include "op_vetor.h"
 
 #define true 1 // para usar como tipo booleano
 #define false 0
@@ -19,40 +17,59 @@ de um arquivo e para um arquivo como pede no trabalho;
 
 typedef int bool; //Definição do tipo booleano
 
+//Arvore binária de buca
+Arvore *raiz = NULL;
+
 // É válido se não existe valor maior que k no conjunto
 bool ehValido(int k, int n, int vet[]){
-	if (buscaBinaria(k,n,vet)) //Esta função está no arquivo op_vetor.c
-		return false;
-	if (igualdade(n,vet))
+	//Esta função está no arquivo op_vetor.c
+	if (buscaBinaria(k,n,vet)) 
 		return false;
 	return true;	
 }
-			
-//Arvore binária de buca
-arvore *raiz = NULL;
 	
-bool igualdade(int n,int vet[]){
-	no *result = busca(raiz, n);
-	if (result != NULL)
-	{
-		int i;
-		for (i = 0; i < n; i += 1)
-		{
-			//printf("%d ",result)
-			if (vet[i] != result->elementos[i])
-				return false;
-		}
+bool existe(int n,int vet[]){
+	No *conjunto = cria_novo_no(n,vet);
+	if (buscaNo(raiz, conjunto))
 		return true;
-	}
-	return false;
+	else
+		return false;
 }
 
-void exibirTodos(arvore *raiz, int nConjuntos){
-	Fila *fila = atravassarEmOrdem(raiz,nConjuntos);
-	while (!estaVazia(fila))
-	{   printf("%d Desenfileirado\n", desenfileirar(fila));	}	
-	printf("\n");	
-}
+/*void exibirTodos(Arvore *raiz, int nConjuntos){*/
+/*	//Fila *fila = atravassarEmOrdem(raiz,nConjuntos);*/
+/*	No **vetorNodos = atravassarEmOrdem(raiz, nConjuntos);*/
+/*	int i,j;*/
+/*/*	while (!estaVazia(fila))*/
+/*/*	{   printf("%d Desenfileirado\n", desenfileirar(fila));	}	*/
+/*	for (i = 0; i < nConjuntos; i += 1)*/
+/*	{		*/
+/*		int n = vetorNodos[i]->tam;*/
+/*		//int proximo = vetorNodos[i+1]->tam;*/
+/*		printf("quem é o i: %d ", i );*/
+/*		printf("%d: ", n );*/
+/*/*		if(i < nConjuntos -1){	*/
+/*/*			printf("IF quem é o i: %d \n", i );		*/
+/*/*			if (n == proximo){*/
+/*/*			printf("IF quem é o i: %d \n", i );*/
+/*/*				int *conjAtual = vetorNodos[i]->elementos;*/
+/*/*				int *proxConj = vetorNodos[i+1]->elementos;*/
+/*/*				int *menor = menorVetor(conjAtual, proxConj, n);*/
+/*/*				int *maior = menorVetor(conjAtual, proxConj, n);*/
+/*/*				imprimeVetor(menor,n);*/
+/*/*				imprimeVetor(maior,n);*/
+/*/*				i++;			*/
+/*/*			}else{*/
+/*/*				printf("ELSE quem é o i: %d \n", i );*/
+/*/*				imprimeVetor(vetorNodos[i]->elementos, n);*/
+/*/*			}		*/
+/*/*		}else{*/
+/*/*			printf("ELSE quem é o i: %d \n", i );*/
+/*/*		}*/
+/*			imprimeVetor(vetorNodos[i]->elementos, n);*/
+/*			printf("FOR quem é o i: %d \n", i );*/
+/*	}*/
+/*}*/
 
 int main (int argc, char *argv[])
 {
@@ -93,36 +110,43 @@ int main (int argc, char *argv[])
 			scanf("%c",&fimdalinha);
 		
 		switch(op){
-			case '+':
-				if(ehValido(max, n, vet)){
-					no *conjunto = cria_novo_no(n,vet);
-					raiz = inserir(raiz, conjunto);
-					nConjuntos++;
-					printf("\t\t\t\tInserido\n");
+			case '+':			
+				if(ehValido(max,n,vet)){		
+					No *conjunto = cria_novo_no(n,vet);
+					if (buscaNo(raiz, conjunto))
+						printf("\t\tErro.\n");
+					else{
+						raiz = insere_rec(raiz, conjunto);
+						nConjuntos++;
+						printf("\t\tOk!\n");
+					}
 				}else
-					printf("\t\t\t\tConjunto inváldo.\n\n");
+					printf("\t\tConjunto inváldo.\n\n");
 				break; 
-			case '-': 				
-				if(igualdade(n,vet)){
-					raiz = remover_rec(raiz,n);
-					nConjuntos--;
-					printf("\t\t\t\tRemovido\n");
-				}else
-					printf("\t\t\t\tEste conj. não existe.\n");				
+			case '-':
+				if(true){
+					No *conjunto = cria_novo_no(n,vet);
+					if (buscaNo(raiz, conjunto)){
+						raiz = remover_rec(raiz,conjunto);
+						nConjuntos--;
+						printf("\t\tOk!\n");
+					}else{
+						printf("\t\tErro.\n");
+					}
+				}
 				break;
 			case '=': 
-				//printf("\t\tIgualdade\n");
-				if(igualdade(n,vet))
-					printf("\t\tEste conj. existe no superconjunto.\n");
+				if(existe(n,vet))
+					printf("\t\tOk!.\n");
 				else
-					printf("\t\t\t\tEste conj. não existe.\n");
+					printf("\t\tErro.\n");
 				break;
 			case '*': 
 				printf("Exibindo..\n");
-				exibirTodos(raiz,nConjuntos);
+				emOrdem(raiz);
 				break;
 			default: 
-				printf("\t\t\t\tOperação invalida.\n");
+				printf("\t\t\tOperação invalida.\n");
 				break;
 		}
 	}	

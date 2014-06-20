@@ -57,7 +57,7 @@ void inserirComPrioridade(Fila *fila, int item){
 int desenfileirar(Fila* fila)
 {
     if (estaVazia(fila)){
-    	printf("Impossivel remover. Árvore vazia.\n");
+    	printf("Impossivel remover. fila vazia.\n");
     	return ;
     }        
     int item = fila->vetor[fila->frente];

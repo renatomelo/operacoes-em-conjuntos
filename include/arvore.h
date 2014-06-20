@@ -1,36 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "fila.h"
+//#include "fila.h"
 
 typedef struct no {
-	int chave; //Tamanho n do conjunto
-	int *elementos; //Vetor de elementos
+	int tam; //Tamanho n do conjunto
+	int *elem; //Vetor de elementos
 	struct no *esq;
 	struct no *dir;
-	struct no *raiz;
-}no;
+}No;
 
-typedef no arvore;
+typedef No Arvore;
 
-no *cria_novo_no(int chave, int *elementos);
+No *cria_novo_no(int chave, int *elementos);
 
-arvore *inserir(arvore *raiz, no *novo);
+Arvore *inserir(Arvore *raiz, No *novo);
 
-no *insere_rec(no *r, no * x);
+No *insere_rec(No *r, No * x);
 
-Fila *atravassarEmOrdem(arvore *raiz, int nConjuntos);
+void emOrdem(Arvore *raiz);
 
-no *minimo(arvore *raiz);
+//Fila *atravassarEmOrdem(Arvore *raiz, int nConjuntos);
+No **atravassarEmOrdem(Arvore *raiz, int nConjuntos);
 
-no *maximo(arvore *raiz);
+No *minimo(Arvore *raiz);
 
-no *sucessor(arvore *raiz, no *x);
+No *maximo(Arvore *raiz);
 
-no *antecessor(arvore *raiz, no *x);
+No *sucessor(Arvore *raiz, No *x);
 
-void remover(arvore *raiz, int x);
+No *antecessor(Arvore *raiz, No *x);
 
-arvore *remover_rec(arvore *raiz, int x);
+void remover(Arvore *raiz, int x);
 
-no *busca(arvore *raiz, int x);
+Arvore *remover_rec(Arvore *raiz, No *x);
+
+No *busca(Arvore *raiz, int x);
+
+int buscaNo(Arvore *raiz, No *x);
 

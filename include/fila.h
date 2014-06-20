@@ -35,6 +35,5 @@ int frente(Fila* fila);
 // Função que devolve a calda da fila
 int calda(Fila* fila);
 
-//Exibe os elementos um vetor de tamanho n
-int imprimeVetor(int vet[], int n);
+
 
