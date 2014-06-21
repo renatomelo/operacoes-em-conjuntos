@@ -19,10 +19,10 @@ LDIR = ../lib
 
 LIBS = -lm
 
-_DEPS = arvore.h op_vetor.h
+_DEPS = arvore.h op_vetor.h operacoes.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o op_vetor.o arvore.o
+_OBJ = main.o op_vetor.o arvore.o operacoes.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)

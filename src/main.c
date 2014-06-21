@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "arvore.h"
 #include "op_vetor.h"
+#include "operacoes.h"
+
 
 #define true 1 // para usar como tipo booleano
 #define false 0
@@ -49,6 +51,7 @@ int main (int argc, char *argv[])
 	char op='1'; // Inicia com um falor qualquer
 	int i, max, n=0;
 	int vet[n];
+	int nConjuntos = 0;
 	
 	scanf("%d",&max); //Lê o primeiro argumento da entrada
 	
@@ -97,6 +100,7 @@ int main (int argc, char *argv[])
 					else{
 						//caso contrario o conjunto é inseridos
 						raiz = insere_rec(raiz, conjunto);
+						nConjuntos++;
 						printf("\t\tOk!\n");
 					}
 				}else
@@ -112,6 +116,7 @@ int main (int argc, char *argv[])
 					//Se sim, é removido. Se não, dá erro
 					if (buscaNo(raiz, conjunto)){
 						raiz = remover_rec(raiz,conjunto);
+						nConjuntos--;
 						printf("\t\tOk!\n");
 					}else{
 						printf("\t\tErro.\n");
@@ -128,8 +133,20 @@ int main (int argc, char *argv[])
 				break;
 			case '*':
 				//Mostra todos os subconjuntos em ordem crescente
-				printf("Exibindo..\n");
+				printf("Exibindo todos..\n");
 				emOrdem(raiz);
+				break;
+			case '>':
+				//Imprime todos os conj que são superconjuntos
+				//do conj envolvido
+				printf("\nExibindo..\n");
+				imprimeSuperConj(raiz,nConjuntos,n,vet);
+				break;
+			case '<':
+				//Imprime todos os conj que são subconjuntos
+				//do conj envolvido
+				printf("\nExibindo..\n");
+				imprimeSubConj(raiz,nConjuntos,n,vet);
 				break;
 			default: 
 				printf("\t\t\tOperação invalida.\n");

@@ -75,16 +75,53 @@ int imprimeVetor(int vet[], int n){
 	printf("\n");
 }
 
+/*int continencia(int n,int *a,int tam, int *b){*/
+/*	int i,j;*/
+/*	for(i = 0; i < tam-1; i++){*/
+/*		if (n == tam)*/
+/*			return saoIguais(a,b,n);*/
+/*		if (n < tam){*/
+/*			for (j = i; j < n+i; j += 1){*/
+/*				if(a[j] != b[j-i])*/
+/*					break;*/
+/*			}*/
+/*			return true;*/
+/*		}*/
+/*	}*/
+/*}*/
+
+//Recebe um conjunto, um subconjunto e seus respectivos tamanhos
+//Devolve verdadeiro se o subconjunto está contido no cojunto
+// falso caso contrario.
+int contemSubConj(int* conj,int tamConj,int* subConj,int tamSubConj){
+    int retorno;
+    int i;
+    for(i = 0; i < tamConj; i++){
+        int j = 0;
+        while(j + i < tamConj){
+            if(conj[j + i] != subConj[j]){
+                retorno = false;
+                break;
+            }else
+                j++;
+            if(j == tamSubConj){
+            	retorno = true;
+            	break;
+            }
+        }
+        if(retorno == true) break;
+    }
+    return retorno;
+}
+
 //Função de teste das funções acima
-/* 
+/*
 int main (int argc, char *argv[])
 {
-	int vet1[] = {1,4,6,8,9};
-	int vet2[] = {11,4,6,8,9};
-//	int result = buscaBinaria(7,5,vet);
-//	printf("%d \n",result);
+	int A[] = {2,4,6,8,9};
+	int B[] = {3};
 
-	printf("%d\n",saoIguais(vet1,vet2,5));
-	return 0;
+	printf("%d\n",contemSubConj(A,5,B,1));
+
 }
 */
