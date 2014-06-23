@@ -50,7 +50,7 @@ int main (int argc, char *argv[])
 	char fimdalinha;
 	char op='1'; // Inicia com um falor qualquer
 	int i, max, n=0;
-	int vet[n];
+	int vet[1000];
 	int nConjuntos = 0;
 	
 	scanf("%d",&max); //Lê o primeiro argumento da entrada

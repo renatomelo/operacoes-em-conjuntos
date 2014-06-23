@@ -22,6 +22,23 @@ bool buscaBinaria( int k, int n, int v[]) {
    }
    return false;
 }
+
+bool pesquisaBin( int k, int n, int v[]) {
+	int inicio = 0;
+	int meio;
+	int fim = n-1;
+	while (inicio <= fim) { 
+		meio = (inicio + fim)/2;
+		if (k == v[meio])
+			return true;
+		else if (v[meio] > k) 
+			fim = meio -1;
+		else
+			inicio = meio + 1;
+   }
+   return false;
+}
+
 //Devolve o menor entre dois vetores do mesmo tamanho
 //o vetor que conter o menor elemento na posição i é o menor
 int *menorVetor(int *vet1, int *vet2, int n){
@@ -75,21 +92,6 @@ int imprimeVetor(int vet[], int n){
 	printf("\n");
 }
 
-/*int continencia(int n,int *a,int tam, int *b){*/
-/*	int i,j;*/
-/*	for(i = 0; i < tam-1; i++){*/
-/*		if (n == tam)*/
-/*			return saoIguais(a,b,n);*/
-/*		if (n < tam){*/
-/*			for (j = i; j < n+i; j += 1){*/
-/*				if(a[j] != b[j-i])*/
-/*					break;*/
-/*			}*/
-/*			return true;*/
-/*		}*/
-/*	}*/
-/*}*/
-
 //Recebe um conjunto, um subconjunto e seus respectivos tamanhos
 //Devolve verdadeiro se o subconjunto está contido no cojunto
 // falso caso contrario.
@@ -114,6 +116,19 @@ int contemSubConj(int* conj,int tamConj,int* subConj,int tamSubConj){
     return retorno;
 }
 
+//Recebe um conjunto, um subconjunto e seus respectivos tamanhos
+//Devolve verdadeiro se o subconjunto está contido no cojunto
+// falso caso contrario.
+int pesquisaSubConj(int* conj,int tamConj,int* subConj,int tamSubConj){
+    int i;
+    for(i = 0; i < tamSubConj; i++){
+		if(!pesquisaBin(subConj[i],tamConj,conj)){
+			return false;
+		}
+    }
+    return true;
+}
+
 //Função de teste das funções acima
 /*
 int main (int argc, char *argv[])
@@ -121,7 +136,7 @@ int main (int argc, char *argv[])
 	int A[] = {2,4,6,8,9};
 	int B[] = {3};
 
-	printf("%d\n",contemSubConj(A,5,B,1));
+	printf("%d\n",pesquisaBin(2,5,A));
 
 }
 */

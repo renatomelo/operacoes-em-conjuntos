@@ -34,7 +34,7 @@ void imprimeSubConj(Arvore *raiz, int nConjuntos, int n, int* vet){
 				if(saoIguais(vet,atual->elem,n))
 					imprimeVetor(atual->elem,atual->tam);
 			if (n > atual->tam){
-				if (contemSubConj(vet,n,atual->elem,atual->tam))
+				if (pesquisaSubConj(vet,n,atual->elem,atual->tam))
 					imprimeVetor(atual->elem,atual->tam);
 			}
 			
@@ -63,7 +63,7 @@ void imprimeSuperConj(Arvore *raiz, int nConjuntos, int n, int* vet){
 				if(saoIguais(vet,atual->elem,n))
 					imprimeVetor(atual->elem,atual->tam);
 			if (n < atual->tam){
-				if (contemSubConj(atual->elem,atual->tam,vet,n))
+				if (pesquisaSubConj(atual->elem,atual->tam,vet,n))
 					imprimeVetor(atual->elem,atual->tam);
 			}
 			
