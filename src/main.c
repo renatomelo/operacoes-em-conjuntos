@@ -50,10 +50,10 @@ int main (int argc, char *argv[])
 	char fimdalinha;
 	char op='1'; // Inicia com um falor qualquer
 	int i, max, n=0;
-	int vet[1000];
 	int nConjuntos = 0;
 	
 	scanf("%d",&max); //Lê o primeiro argumento da entrada
+	int vet[max];
 	
 	//Lê o enter e vai para a proxima linha
 	scanf("%c",&fimdalinha);
@@ -70,6 +70,7 @@ int main (int argc, char *argv[])
 		//caso contrario desconsidera o restante da linha
 		if (op != '*'){
 			scanf("%d",&n);
+
 		
 			//Mostra os valores que foram lidos
 			printf("%c ", op);		
@@ -83,8 +84,8 @@ int main (int argc, char *argv[])
 			scanf("%c",&fimdalinha); 
 		
 			//Exibe o conteudo do vetor
-			for (i = 0; i < n; i += 1)
-				printf("%d ", vet[i]);
+/*			for (i = 0; i < n; i += 1)*/
+/*				printf("%d ", vet[i]);*/
 		}else			
 			scanf("%c",&fimdalinha);
 		

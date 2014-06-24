@@ -29,7 +29,7 @@ $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 trabalho: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	gcc -W -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 

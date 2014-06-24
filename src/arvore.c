@@ -184,6 +184,11 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 		//Se os elementos da raiz são iguais aos elementos de x, 
 		// o nó foi encontrado, senão, a busca continua.
 		if(saoIguais(raiz->elem,x->elem,x->tam)){
+						//Tem apenas um filho direita*/
+/*			if(raiz->esq == NULL && raiz->dir == NULL){*/
+/*				free(raiz);*/
+/*				return tmp;*/
+/*			}*/
 			//Tem apenas um filho direita*/
 			if(raiz->esq == NULL){
 				No *tmp = raiz->dir;
@@ -200,6 +205,7 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 			No *tmp = minimo(raiz->dir);
 			//Copia o conteudo do sucessor neste nó
 			raiz->tam = tmp->tam;
+			raiz->elem = (int*) malloc(tmp->tam * sizeof(int));
 			int i;
 			for (i = 0; i < tmp->tam; i += 1)
 				raiz->elem[i] = tmp->elem[i];
