@@ -149,6 +149,11 @@ int main (int argc, char *argv[])
 				printf("\nExibindo..\n");
 				imprimeSubConj(raiz,nConjuntos,n,vet);
 				break;
+			case '/':
+				//Remove todos os conj que são subconjuntos
+				//do conj envolvido
+				removeSuperConj(raiz, &nConjuntos, n,vet);
+				break;
 			default: 
 				printf("\t\t\tOperação invalida.\n");
 				break;
