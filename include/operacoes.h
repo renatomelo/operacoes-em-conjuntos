@@ -1,5 +1,9 @@
+
+int ehValido(int k, int n, int vet[]);
+
+int existe(int n,int vet[]);
 //+
-void add(int n, int *vet);
+void add(int max, int n, int *vet);
 //-
 void del(int n, int *vet);
 //=
@@ -7,8 +11,8 @@ void igualdade(int n, int *vet);
 //*
 void exibir();
 //<
-void imprimeSubConj(Arvore *raiz, int nConjuntos, int n, int* vet);
+void imprimeSubConj(int n, int* vet);
 //>
-void estaContido(Arvore *raiz,int nConjuntos, int n,int* vet);
+void imprimeSuperConj(int n,int* vet);
 
-void removeSuperConj(Arvore *raiz, int *nConjuntos, int n, int* vet);
+void removeSuperConj(int n, int* vet);

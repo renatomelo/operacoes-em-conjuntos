@@ -5,7 +5,7 @@
 typedef int bool; //Definição do tipo booleano
 
 /*Adotando a politica de criar o novo nó fora da função de inserção*/
-No *cria_novo_no(int tam, int elem[]){
+No *criaNovoNo(int tam, int elem[]){
 	int i;
 	No *novo;
 	novo = malloc(sizeof (No));
@@ -65,8 +65,7 @@ No *insere_rec(No *r, No *x){
 /*Mostra todos os nodos da árvore em ordem crescente*/
 void emOrdem(Arvore *raiz){
 	if (raiz != NULL){		
-		emOrdem(raiz->esq);	
-		printf("%d: ",raiz->tam);
+		emOrdem(raiz->esq);
 		imprimeVetor(raiz->elem,raiz->tam);
 		emOrdem(raiz->dir);
 	}
@@ -86,46 +85,7 @@ No *maximo(Arvore *raiz){
 	return raiz;
 }
 
-//Recebe o endereço de um nó x. Devolve o endereço do nó seguinte na 
-//ordem e-r-d. A função supõe que x != NULL.
-No *sucessor(Arvore *raiz, No *x){
-	No *atual, *sucessor;
-	if (x->dir != NULL)
-		return minimo(x->dir);
-	else{
-		sucessor = NULL;
-		atual = raiz;
-		while (atual != x)
-		{
-			sucessor = atual;
-			if (x->tam < atual->tam)
-				atual = atual->esq;
-			else
-				atual = atual->dir;
-		}
-	}
-	return sucessor;
-}
 
-//Recebe o endereço de um nó x. Devolve o endereço do nó anterior na 
-//ordem e-r-d. A função supõe que x != NULL.
-No *antecessor(Arvore *raiz, No *x){
-	No *atual, *antecessor;
-	if(x->esq != NULL)
-		return maximo(x->esq);
-	else{
-		antecessor = NULL;
-		atual = raiz;
-		while (atual != x){
-			antecessor = atual;
-			if (x->tam < atual->tam)
-				atual = atual->esq;
-			else
-				atual = atual->dir;
-		}		
-	}
-	return antecessor;
-}
 //Tentativa de fazer uma versão iterativa, mas não consegui ainda :(
 void remover(Arvore *raiz, int x){
 	No *atual, *anterior;
@@ -184,11 +144,6 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 		//Se os elementos da raiz são iguais aos elementos de x, 
 		// o nó foi encontrado, senão, a busca continua.
 		if(saoIguais(raiz->elem,x->elem,x->tam)){
-						//Tem apenas um filho direita*/
-/*			if(raiz->esq == NULL && raiz->dir == NULL){*/
-/*				free(raiz);*/
-/*				return tmp;*/
-/*			}*/
 			//Tem apenas um filho direita*/
 			if(raiz->esq == NULL){
 				No *tmp = raiz->dir;
@@ -205,7 +160,8 @@ Arvore *remover_rec(Arvore *raiz, No *x){
 			No *tmp = minimo(raiz->dir);
 			//Copia o conteudo do sucessor neste nó
 			raiz->tam = tmp->tam;
-			raiz->elem = (int*) malloc(tmp->tam * sizeof(int));
+			//raiz->elem = (int*) malloc(tmp->tam * sizeof(int));
+			raiz->elem = (int*) realloc(raiz->elem,tmp->tam*sizeof(int));
 			int i;
 			for (i = 0; i < tmp->tam; i += 1)
 				raiz->elem[i] = tmp->elem[i];
@@ -236,7 +192,7 @@ No *busca(Arvore *raiz, int x){
 
 //Devolve verdade se o nó existe na arvore
 //Quando existe nós do mesmo tamanho, compara-se os elementos do conj
-bool buscaNo(Arvore *raiz, No *x){
+bool existe(Arvore *raiz, No *x){
 	while(raiz != NULL){
 		if (raiz->tam > x->tam)
 			raiz = raiz->esq;
@@ -257,51 +213,3 @@ bool buscaNo(Arvore *raiz, No *x){
 	}
 	return false;
 }
-
-
-//Função utilizada para testar as funções acima
-/*int main (int argc, char *argv[]){*/
-/*	Arvore *raiz = NULL;*/
-/*	int v1[] = {1,2,3};*/
-/*	int v2[] = {4,5,6,7};*/
-/*	int v3[] = {6,7};*/
-/*	int v4[] = {4,5,6,7,8};*/
-/*	int v5[] = {7};*/
-
-/*	*/
-/*	raiz = insere_rec(raiz,cria_novo_no(3,v1));*/
-/*	No *nodo = cria_novo_no(4,v2);*/
-/*	raiz = insere_rec(raiz,nodo);*/
-/*	raiz = insere_rec(raiz,cria_novo_no(1,v5));*/
-/*	raiz = insere_rec(raiz,cria_novo_no(2,v3));*/
-/*	//raiz = inserir(raiz,cria_novo_no(5,v4));*/
-/*	//raiz = inserir(raiz,cria_novo_no(1,v5));*/
-/*	raiz = insere_rec(raiz,cria_novo_no(5,v4));*/
-/*	//raiz = inserir(raiz,cria_novo_no(3,v1));*/
-/*	//raiz = inserir(raiz,cria_novo_no(1,v5));*/
-/*	emOrdem(raiz);*/
-/*	printf("\n");*/
-/*/*	no *m = minimo(raiz);*/
-/*/*	printf("Menor elemento da árvore: %d\n",m->chave);*/
-/*/*	m = maximo(raiz);*/
-/*/*	printf("Maior elemento da árvore: %d\n",m->chave);*/
-/*/*	no *suc = sucessor(raiz,nodo);*/
-/*/*	printf("Sucessor de %d: %d\n",nodo->chave,suc->chave);*/
-/*/*	no *ant = antecessor(raiz,nodo);*/
-/*/*	printf("Antecessor de %d: %d\n",nodo->chave,ant->chave);*/
-/*	*/
-/*	//raiz = remover_rec(raiz,3);*/
-/*	//raiz = remover_rec(raiz,1);*/
-/*	//raiz = remover_rec(raiz,5);*/
-/*	//exibir_emordem(raiz);*/
-/*	//printf("\n");*/
-/*/*	no *resultadoBusca = busca(raiz, 4);*/
-/*/*	int i;*/
-/*/*	for (i = 0; i < 4; i += 1)*/
-/*/*	{*/
-/*/*		printf("%d ", resultadoBusca->elem[i]);*/
-/*/*	}	*/
-/*	printf("\n");*/
-/*	//remover(raiz,4);*/
-/*	return 0;*/
-/*}*/
