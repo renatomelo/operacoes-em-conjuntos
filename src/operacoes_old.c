@@ -21,13 +21,15 @@ bool ehValido(int k, int n, int vet[]){
 
 //+
 void add(int max, int n, int *vet){
+
 	//Validação	
 	if(ehValido(max,n,vet)){
 		//incapsula o vetor e o tamanho em um nó  	
 		No *conjunto = criaNovoNo(n,vet);
+		//printf("*************** %d\n",conjunto->elem[0]);
 		//Se o conj. já existe na arvore não insere
 		if (existe(raiz, conjunto))
-		printf("E\n0\n");
+			printf("E\n0\n");
 		else{
 			//caso contrario o conjunto é inseridos
 			raiz = insere_rec(raiz, conjunto);
@@ -63,8 +65,11 @@ void igualdade(int n, int *vet){
 
 //'*'
 void exibir(){
-	emOrdem(raiz);
-	printf("0\n");
+	if(raiz != NULL){
+		emOrdem(raiz);
+		printf("0\n");
+	}else
+		printf("E\n0\n");		
 }
 
 /* operação '<'
@@ -162,3 +167,4 @@ void removeSuperConj(int n, int* vet){
 	}
 	printf("%s",saida);
 }
+

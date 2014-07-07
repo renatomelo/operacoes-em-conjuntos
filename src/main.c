@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "operacoes.h"
+#include "operacoes_rb.h"
 
 /*
  Utilizei entrada e saida padrão (scanf e printf);
@@ -14,21 +14,25 @@ Leitura das entradas, a primeira linha é um valor max,  que é o
  (+,-,=,*), um valor n, que será o tamanho dos conjuntos
 e os elementos do conjunto. 
 */
-int main (int argc, char *argv[])
+int main (void)
 {
+	iniciar_colecao();
+	//Variavel para receber o retorno do scanf
+    int unused;
+    
 	char fimdalinha;
 	char op='1'; // Inicia com um falor qualquer
-	int i, max, n=0;
+	int i, k, n=0;
+	int *vet;
 	
-	scanf("%d",&max); //Lê o primeiro argumento da entrada
-	int vet[max];
-	
-	//Lê o enter e vai para a proxima linha
-	scanf("%c",&fimdalinha);
+	unused = scanf("%d",&k); //Lê o primeiro argumento da entrada
 		
-	while (op){
+
+	//Lê o enter e vai para a proxima linha
+	unused = scanf("%c",&fimdalinha);
+		
+	while (scanf("%c",&op)){
 		//Lê a operação		
-		scanf("%c",&op);
 		
 		//Sai do laço se chegar ao fim do arquivo
 		if (op == '0')
@@ -37,20 +41,23 @@ int main (int argc, char *argv[])
 		//Se a operação não é * lê o restante dos argumentos
 		//caso contrario despresa o restante da linha
 		if (op != '*'){
-			scanf("%d",&n);
+			//unused = scanf("%d",&n);
 			
 			//Lê os elementos do conjunto e insere em um vetor
-			for(i=0;i < n;i++)
-				scanf("%d",&vet[i]);			
-			
+			if(scanf("%d",&n)){
+			vet = (int*) malloc(n * sizeof(int));
+				for(i=0;i < n;i++)
+					if(!scanf("%d",&vet[i]))
+						printf("E\n0\n");
+			}
 			//Lê o enter e vai para a proxima linha
-			scanf("%c",&fimdalinha);		
+			unused = scanf("%c",&fimdalinha);		
 		}else			
-			scanf("%c",&fimdalinha);
-		
+			unused = scanf("%c",&fimdalinha);
+
 		switch(op){
 			case '+'://Operação de inserção	
-				add(max,n,vet);
+				add(n,vet);
 				break; 
 			case '-'://Operação de remoção de um conjunto
 				del(n,vet);

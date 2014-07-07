@@ -7,11 +7,17 @@ typedef int bool; //Definição do tipo booleano
 /*Adotando a politica de criar o novo nó fora da função de inserção*/
 No *criaNovoNo(int tam, int elem[]){
 	int i;
+/*		printf("N: %d ",tam);*/
+/*		//int i;*/
+/*		for (i = 0; i < tam; i += 1)*/
+/*		{*/
+/*			printf(" %d",elem[i]);*/
+/*		}*/
 	No *novo;
 	novo = malloc(sizeof (No));
 	novo->tam = tam;
 	//Alocando espaço para o vetor de elementos
-	novo->elem = (int*) malloc(tam * sizeof(int));
+	novo->elem = malloc(tam * sizeof(int));
 	for (i = 0; i < tam; i += 1)
 		novo->elem[i] = elem[i];//Insere os elementos no vetor 
 	novo->esq = novo->dir = NULL;
@@ -83,49 +89,6 @@ No *maximo(Arvore *raiz){
 	while(raiz->dir != NULL)
 		raiz = raiz->dir;
 	return raiz;
-}
-
-
-//Tentativa de fazer uma versão iterativa, mas não consegui ainda :(
-void remover(Arvore *raiz, int x){
-	No *atual, *anterior;
-	atual = raiz;
-	anterior = NULL;
-	if(raiz == NULL) printf("Arvore vazia.\n");
-		//return NULL
-	while (atual != NULL && atual->tam != x)
-	{
-		if(x < atual->tam){
-			//Vai pra esquerda
-			anterior = atual;
-			atual = atual->esq;		
-		}
-		else if((x > atual->tam)){
-			//vai pra direita
-			anterior = atual;
-			atual = atual->dir;
-		}
-	}
-	if(atual == NULL)
-		printf("\t Não encontrado.\n");
-	if (atual->tam == x){
-		//printf("Encontrou. LOL\n");
-		if (atual->esq == NULL && atual->dir == NULL){
-			printf("Não tem filhos. :)\n");
-			free(atual);
-		}			
-		else if(atual->esq == NULL){
-			printf("Tem o filho da direita :/\n");
-			No *tmp = minimo(atual->dir);
-			free(atual);
-		}
-			
-		else if(atual->dir == NULL)
-			printf("Tem o filho da esquerda :/\n");
-		else
-			printf("O fdp tem dois filhos. :(\n");
-	}
-		
 }
 
 //Metodo de remoção por recursividade

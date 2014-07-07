@@ -23,20 +23,20 @@ bool buscaBinaria( int k, int n, int v[]) {
    return false;
 }
 
-bool pesquisaBin( int k, int n, int v[]) {
-	int inicio = 0;
+int pesquisaBin(int k, int n, int v[], int j) {
+	int inicio = j;
 	int meio;
 	int fim = n-1;
 	while (inicio <= fim) { 
 		meio = (inicio + fim)/2;
 		if (k == v[meio])
-			return true;
+			return meio;
 		else if (v[meio] > k) 
 			fim = meio -1;
 		else
 			inicio = meio + 1;
    }
-   return false;
+   return -1;
 }
 
 //Devolve verdade se vet1[0..n] é menor que vet2[0..n]
@@ -72,11 +72,13 @@ int imprimeVetor(int vet[], int n){
 //Recebe um conjunto, um subconjunto e seus respectivos tamanhos
 //Devolve verdadeiro se o subconjunto está contido no cojunto
 bool contemSubConj(int* conj,int tamConj,int* subConj,int tamSubConj){
-    int i;
-    for(i = 0; i < tamSubConj; i++){
-		if(!pesquisaBin(subConj[i],tamConj,conj)){
+    int i,j = 0;
+    for(i = 0; i < tamSubConj; i++){    
+		j = pesquisaBin(subConj[i],tamConj,conj,j);
+		if(j == -1){
 			return false;
 		}
+		
     }
     return true;
 }

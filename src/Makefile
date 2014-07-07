@@ -12,24 +12,24 @@
 
 IDIR = ../include
 CC = gcc
-CFLAGS = -I$(IDIR)
+CFLAGS = -I$(IDIR) #-Os
 
 ODIR = obj
 LDIR = ../lib
 
 LIBS = -lm
 
-_DEPS = arvore.h op_vetor.h operacoes.h
+_DEPS = op_vetor.h operacoes_rb.h libtree.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o op_vetor.o arvore.o operacoes.o
+_OBJ = main.o op_vetor.o operacoes_rb.o avl.o rb.o bst.o splay.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -g -c -o  $@ $< $(CFLAGS) 
 
 trabalho: $(OBJ)
-	gcc -W -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -g -o $@ $^ $(CFLAGS) $(LIBS) 
 
 .PHONY: clean
 
