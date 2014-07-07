@@ -10,19 +10,19 @@
 #trabalho: func_basicas.c op_vetor.c arvore.c
 #	gcc -o trabalho func_basicas.c op_vetor.c arvore.c -I.
 
-IDIR = ../include
+IDIR = include
 CC = gcc
 CFLAGS = -I$(IDIR) #-Os
 
 ODIR = obj
-LDIR = ../lib
+LDIR = lib
 
 LIBS = -lm
 
 _DEPS = op_vetor.h operacoes_rb.h libtree.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o op_vetor.o operacoes_rb.o avl.o rb.o bst.o splay.o
+_OBJ = main.o op_vetor.o operacoes_rb.o rb.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
