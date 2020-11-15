@@ -1,32 +1,5 @@
-Trabalho final da disciplina de Algoritmos e estrutura de dados. UFPR
+# Operações em conjuntos
+Programa que armazena e trata operações em conjuntos. 
 
-Intalação do git:
-
-sudo apt-get install git-core (No Linux)
-
-
-Adicionando o repositório:
-
-git remote add origin git@github.com:renatomelo/TrabalhoAlg.git
-
-
-Baixando o código:
-
-git pull origin master
-
-
-Enviando mudanças:
-
-git add .
-
-git commit -m "Descrição do commit" 
-
-git push origin master 
-
-
-Run
-
-git config --global user.email "you@example.com"
-
-git config --global user.name "Your Name"
-
+O formato do arquivo de entrada é: <operador> <tamanho do conjunto> <conjunto (ordenado)>
+Por exemplo: + 5 12 30 32 33 40
